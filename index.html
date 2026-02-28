@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Happy Birthday 🎉</title>
+
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    overflow: hidden;
+    color: white;
+}
+
+.container {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* Image */
+.photo {
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    border: 5px solid white;
+    object-fit: cover;
+    animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+    from { box-shadow: 0 0 10px white; }
+    to { box-shadow: 0 0 30px yellow; }
+}
+
+h1 {
+    font-size: 40px;
+}
+
+p {
+    font-size: 18px;
+}
+
+#countdown {
+    font-size: 22px;
+    margin-top: 10px;
+}
+
+/* Confetti */
+.confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    animation: fall 5s linear infinite;
+}
+
+@keyframes fall {
+    0% { transform: translateY(-100px) rotate(0deg); }
+    100% { transform: translateY(800px) rotate(360deg); }
+}
+</style>
+</head>
+
+<body>
+
+<audio autoplay loop>
+    <source src="song.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container">
+    <img src="ansibaa.jpg" class="photo">
+    <h1>🎂 Happy Birthday Ansibaa 🎉</h1>
+    <p>Wishing you happiness, success and endless smiles ✨</p>
+    <div id="countdown"></div>
+</div>
+
+<script>
+
+/* 🎉 Countdown (Date change kar lena) */
+var birthday = new Date("March 5, 2026 00:00:00").getTime();
+
+var x = setInterval(function() {
+    var now = new Date().getTime();
+    var distance = birthday - now;
+
+    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    document.getElementById("countdown").innerHTML =
+        "⏳ Countdown: " + days + "d " + hours + "h "
+        + minutes + "m " + seconds + "s ";
+
+    if (distance < 0) {
+        clearInterval(x);
+        document.getElementById("countdown").innerHTML =
+            "🎉 It's Her Special Day! 🎉";
+    }
+}, 1000);
+
+/* 🎊 Confetti Generator */
+setInterval(function() {
+    var confetti = document.createElement("div");
+    confetti.className = "confetti";
+    confetti.style.left = Math.random() * 100 + "vw";
+    confetti.style.backgroundColor =
+        "hsl(" + Math.random() * 360 + ", 100%, 50%)";
+    document.body.appendChild(confetti);
+
+    setTimeout(function() {
+        confetti.remove();
+    }, 5000);
+}, 150);
+
+</script>
+
+</body>
+</html>
